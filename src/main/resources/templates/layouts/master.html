@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+
+    <title>Starter Template for Bootstrap</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.2/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.2/css/bootstrap-theme.min.css"
+          th:href="@{/webjars/bootstrap/3.3.2/css/bootstrap-theme.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:fragment="nav">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Tournois Handball</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <!-- Left -->
+            <ul class="nav navbar-nav" sec:authorize="!hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                <li th:classappend="${page == 'home' ? 'active' : ''}"><a href="#" th:href="@{/}">Accueil</a></li>
+                <li th:classappend="${page == 'about' ? 'active' : ''}"><a href="#" th:href="@{/about}">A propos</a></li>
+            </ul>
+            <ul class="nav navbar-nav" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                <li th:classappend="${page == 'dashboard' ? 'active' : ''}"><a href="#" th:href="@{/dashboard}">Tableau de bord</a></li>
+                <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">Administration <span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="#" th:href="@{/admin/users}">Utilisateurs</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" th:href="@{/admin/teams}">Equipes</a></li>
+                        <li><a href="#" th:href="@{/admin/seasons}">Saisons</a></li>
+                        <li><a href="#" th:href="@{/admin/results}">Résultats</a></li>
+                        <li><a href="#" th:href="@{/admin/matchs}">Matchs</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- RIght -->
+            <ul class="nav navbar-nav navbar-right" sec:authorize="!hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                <li th:classappend="${page == 'login' ? 'active' : ''}"><a href="#" th:href="@{/login}">Se connecter</a></li>
+                <li th:classappend="${page == 'register' ? 'active' : ''}"><a href="#" th:href="@{/register}">S'inscrire</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                <li><a href="#"><strong>Bienvenue <span sec:authentication="principal.firstName">prénom</span></strong></a></li>
+                <li><a href="#" th:href="@{/logout}">Déconnexion</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+    <div class="starter-template" layout:fragment="content">
+        <h1>Bootstrap starter template</h1>
+        <p class="lead">Use this document as a way to quickly start any new project.<br /> All you get is this text and a mostly barebones HTML document.</p>
+    </div><!-- /.starter-template -->
+    <hr />
+    <footer>
+        <p>&copy; Tournois Handball 2015</p>
+    </footer>
+</div><!-- /.container -->
+
+<div th:fragment="footer">
+
+</div>
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.1/jquery.min.js"
+        th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
+
+<script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.2/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
+
+<script layout:fragment="scripts"></script>
+
+</body>
+
+</html>

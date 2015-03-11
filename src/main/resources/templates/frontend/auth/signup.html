@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/master">
+
+<head>
+    <title>Inscription</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <h1>Rejoindre Tournois Handball</h1>
+    </div>
+
+    <form action="#" th:action="@{/register}" th:object="${register}" method="POST" role="form">
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
+            <label for="username">Adresse email</label>
+            <input type="text" name="username" class="form-control" id="username" th:field="*{email}" placeholder="" required="required" />
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Erreur adresse email</p>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" class="form-control" id="password" th:field="*{password}" placeholder="" required="required" />
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('firstName')}? 'has-error'">
+            <label for="first_name">Prénom</label>
+            <input type="text" name="first_name" class="form-control" id="first_name" th:field="*{firstName}" placeholder="" />
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('lastName')}? 'has-error'">
+            <label for="last_name">Nom</label>
+            <input type="text" name="last_name" class="form-control" id="last_name" th:field="*{lastName}" placeholder="" />
+        </div>
+        <button type="submit" class="btn btn-default">Inscription</button>
+    </form>
+</div>
+
+</body>
+
+</html>

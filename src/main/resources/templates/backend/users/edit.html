@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/master">
+
+<head>
+    <title>Administration - Utilisateurs</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="#" th:href="@{/admin}">Administration</a></li>
+            <li><a href="#" th:href="@{/admin/users}">Utilisateurs</a></li>
+            <li class="active">Modifier</li>
+        </ol>
+
+        <h1>Modifier un utilisateur</h1>
+    </div>
+
+    <form class="form-signin" role="form" action="#" th:action="@{/admin/users/{userId}(userId=${user.id})}" th:object="${user}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+        <div class="form-group">
+            <label for="email">Adresse email</label>
+            <input type="email" class="form-control" id="email" placeholder="" th:field="*{email}" />
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        </div>
+        <div class="form-group">
+            <label for="firstName">Prénom</label>
+            <input type="text" class="form-control" id="firstName" placeholder="" th:field="*{firstName}" />
+            <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Nom</label>
+            <input type="text" class="form-control" id="lastName" placeholder="" th:field="*{lastName}" />
+            <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" placeholder="" th:field="*{password}" />
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        </div>
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select id="role" th:field="*{role}" class="form-control">
+                <option value="USER">Utilisateur</option>
+                <option value="ADMIN">Administrateur</option>
+            </select>
+            <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
+        </div>
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" name="_method" value="PUT" />
+        <button type="submit" class="btn btn-primary btn-lg">Modifier</button>
+    </form>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layouts/master">
+
+<head>
+    <title>Administration - Saisons</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="#" th:href="@{/admin}">Administration</a></li>
+            <li><a href="#" th:href="@{/admin/seasons}">Saisons</a></li>
+            <li class="active">Liste</li>
+        </ol>
+        <h1>Administration <small>Saisons</small></h1>
+    </div>
+    <div th:if="!${#lists.isEmpty(seasons)}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom de la saison</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th style="width: 200px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="season : ${seasons}">
+                    <th th:text="${season.id}" scope="row">1</th>
+                    <td th:text="${season.name}"></td>
+                    <td>
+                        <span th:text="${#calendars.format(season.startAt,'dd MMMM yyyy')}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${#calendars.format(season.endAt,'dd MMMM yyyy')}"></span>
+                    </td>
+                    <td style="width: 200px;">
+                        <a href="#" th:href="@{/admin/seasons/{seasonId}/edit(seasonId=${season.id})}" class="btn btn-info" role="button" style="float: left">Modifier</a>
+                        <form action="#" th:action="@{/admin/seasons/{seasonId}(seasonId=${season.id})}" method="post" style="float: left; margin-left: 10px;">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(seasons)}">
+        Aucune saison pour l'instant.
+    </div>
+    <br />
+    <a href="#" th:href="@{/admin/seasons/create}" class="btn btn-primary btn-lg active" role="button">Ajouter</a>
+</div>
+
+</body>
+
+</html>

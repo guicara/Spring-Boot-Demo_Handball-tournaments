@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/master">
+
+<head>
+    <title>Tableau de bord</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="active"><a href="#" th:href="@{/admin}">Administration</a></li>
+        </ol>
+
+        <h1>Administration</h1>
+    </div>
+
+    <ul>
+        <li><a href="#" th:href="@{/admin/users}">Gérer les utilisateurs</a></li>
+        <li><a href="#" th:href="@{/admin/teams}">Gérer les équipes</a></li>
+        <li><a href="#" th:href="@{/admin/seasons}">Gérer les saisons</a></li>
+        <li><a href="#" th:href="@{/admin/results}">Gérer les résultats de match</a></li>
+        <li><a href="#" th:href="@{/admin/matchs}">Gérer les matchs/rencontres</a></li>
+    </ul>
+</div>
+
+</body>
+
+</html>

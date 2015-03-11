@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/master">
+
+<head>
+    <title>Administration - Matchs</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="#" th:href="@{/admin}">Administration</a></li>
+            <li><a href="#" th:href="@{/admin/matchs}">Matchs</a></li>
+            <li class="active">Ajouter</li>
+        </ol>
+        <h1>Ajouter un match</h1>
+    </div>
+    <div th:if="!${#lists.isEmpty(teams)}">
+        <form class="form-signin" role="form" action="#" th:action="@{/admin/matchs}" th:object="${match}" method="post">
+            <div class="form-group">
+                <label for="idTeamDom">Equipe domicile</label>
+                <select id="idTeamDom" th:field="*{idTeamDom}" class="form-control">
+                    <option th:each="team : ${teams}"
+                            th:value="${team.id}"
+                            th:text="${team.name}">Nom équipe</option>
+                </select>
+                <p th:if="${#fields.hasErrors('idTeamDom')}" th:errors="*{idTeamDom}"></p>
+            </div>
+            <div class="form-group">
+                <label for="idTeamExt">Equipe extérieure</label>
+                <select id="idTeamExt" th:field="*{idTeamExt}" class="form-control">
+                    <option th:each="team : ${teams}"
+                            th:value="${team.id}"
+                            th:text="${team.name}">Nom équipe</option>
+                </select>
+                <p th:if="${#fields.hasErrors('idTeamExt')}" th:errors="*{idTeamExt}"></p>
+            </div>
+            <div class="form-group">
+                <label for="scoreDom">Score équipe domicile</label>
+                <input type="text" class="form-control" id="scoreDom" placeholder="" th:field="*{scoreDom}" />
+                <p th:if="${#fields.hasErrors('scoreDom')}" th:errors="*{scoreDom}"></p>
+            </div>
+            <div class="form-group">
+                <label for="scoreDom">Score équipe extérieure</label>
+                <input type="text" class="form-control" id="scoreExt" placeholder="" th:field="*{scoreExt}" />
+                <p th:if="${#fields.hasErrors('scoreExt')}" th:errors="*{scoreExt}"></p>
+            </div>
+            <div class="form-group">
+                <label for="playedAt">Date de la rencontre</label>
+                <input type="text" class="form-control" id="playedAt" placeholder="Au format jj/mm/aaaa" th:field="*{playedAt}" required="required" />
+                <p th:if="${#fields.hasErrors('playedAt')}" th:errors="*{playedAt}"></p>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+        </form>
+    </div>
+    <div th:if="${#lists.isEmpty(teams)}" class="alert alert-warning" role="alert">
+        Pour pouvoir ajouter un match, vous devez d'abord <a href="#" th:href="@{/admin/teams/create}">créer des équipes.</a>
+    </div>
+</div>
+
+</body>
+
+</html>

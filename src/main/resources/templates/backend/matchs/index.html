@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layouts/master">
+
+<head>
+    <title>Administration - Matchs</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="#" th:href="@{/admin}">Administration</a></li>
+            <li><a href="#" th:href="@{/admin/matchs}">Matchs</a></li>
+            <li class="active">Liste</li>
+        </ol>
+        <h1>Administration <small>Matchs</small></h1>
+    </div>
+    <div th:if="!${#lists.isEmpty(matchs)}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Equipe domicile</th>
+                    <th>Equipe extérieure</th>
+                    <th>Score domicile</th>
+                    <th>Score extérieur</th>
+                    <th style="width: 200px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="match : ${matchs}">
+                    <th th:text="${match.id}" scope="row">1</th>
+                    <td th:text="${match.getIdTeamDom().name}"></td>
+                    <td th:text="${match.getIdTeamExt().name}"></td>
+                    <td th:text="${match.getScoreDom()}"></td>
+                    <td th:text="${match.getScoreExt()}"></td>
+                    <td style="width: 200px;">
+                        <a href="#" th:href="@{/admin/matchs/{matchId}/edit(matchId=${match.id})}" class="btn btn-info" role="button" style="float: left">Modifier</a>
+                        <form action="#" th:action="@{/admin/matchs/{matchId}(matchId=${match.id})}" method="post" style="float: left; margin-left: 10px;">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(matchs)}">
+        Aucune rencontre pour l'instant.
+    </div>
+    <br />
+    <a href="#" th:href="@{/admin/matchs/create}" class="btn btn-primary btn-lg active" role="button">Ajouter</a>
+</div>
+
+</body>
+
+</html>

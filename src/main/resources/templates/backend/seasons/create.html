@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/master">
+
+<head>
+    <title>Administration - Saisons</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="#" th:href="@{/admin}">Administration</a></li>
+            <li><a href="#" th:href="@{/admin/seasons}">Saisons</a></li>
+            <li class="active">Ajouter</li>
+        </ol>
+        <h1>Ajouter une saison</h1>
+    </div>
+    <form class="form-signin" role="form" action="#" th:action="@{/admin/seasons}" th:object="${season}" method="post">
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="name" placeholder="" th:field="*{name}" required="required" />
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
+        <div class="form-group">
+            <label for="startAt">Date de début</label>
+            <input type="text" class="form-control" id="startAt" placeholder="Au format jj/mm/aaaa" th:field="*{startAt}" required="required" />
+            <p th:if="${#fields.hasErrors('startAt')}" th:errors="*{startAt}"></p>
+        </div>
+        <div class="form-group">
+            <label for="endAt">Date de fin</label>
+            <input type="text" class="form-control" id="endAt" placeholder="Au format jj/mm/aaaa" th:field="*{endAt}" required="required" />
+            <p th:if="${#fields.hasErrors('endAt')}" th:errors="*{endAt}"></p>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+    </form>
+</div>
+
+</body>
+
+</html>

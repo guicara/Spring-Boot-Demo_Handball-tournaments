@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layouts/master">
+
+<head>
+    <title>Administration - Utilisateurs</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="#" th:href="@{/admin}">Administration</a></li>
+            <li><a href="#" th:href="@{/admin/users}">Utilisateurs</a></li>
+            <li class="active">Liste</li>
+        </ol>
+
+        <h1>Administration <small>Utilisateurs</small></h1>
+    </div>
+
+    <div th:if="!${#lists.isEmpty(users)}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Adresse email</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Rôle</th>
+                    <th style="width: 200px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <th th:text="${user.id}" scope="row">1</th>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.getRoleTxt()}"></td>
+                    <td style="width: 200px;">
+                        <a href="#" th:href="@{/admin/users/{userId}/edit(userId=${user.id})}" class="btn btn-info" role="button" style="float: left">Modifier</a>
+                        <form action="#" th:action="@{/admin/users/{userId}(userId=${user.id})}" method="post" style="float: left; margin-left: 10px;">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(users)}">
+        Aucun utilisateur pour l'instant.
+    </div>
+    <br />
+    <a href="#" th:href="@{/admin/users/create}" class="btn btn-primary btn-lg active" role="button">Ajouter</a>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/master">
+
+<head>
+    <title>Administration - Equipes</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="#" th:href="@{/admin}">Administration</a></li>
+            <li><a href="#" th:href="@{/admin/teams}">Equipes</a></li>
+            <li class="active">Ajouter</li>
+        </ol>
+        <h1>Ajouter une équipe</h1>
+    </div>
+    <form class="form-signin" role="form" action="#" th:action="@{/admin/teams}" th:object="${team}" method="post">
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="name" placeholder="" th:field="*{name}" required="required" />
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" class="form-control" th:field="*{description}"></textarea>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+        </div>
+        <div class="form-group">
+            <label for="pathLogo">Logo</label>
+            <input type="text" class="form-control" id="pathLogo" placeholder="" th:field="*{pathLogo}" />
+            <p th:if="${#fields.hasErrors('pathLogo')}" th:errors="*{pathLogo}"></p>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+    </form>
+</div>
+
+</body>
+
+</html>

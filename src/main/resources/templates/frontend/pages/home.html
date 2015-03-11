@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+
+    <title>Tournois Handball</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.2/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.2/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+
+    <link th:href="@{/css/cover.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">Tournois Handball</h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li class="active"><a href="#" th:href="@{/}">Accueil</a></li>
+                            <li><a href="#" th:href="@{/about}" >En savoir plus</a></li>
+                            <li><a href="#" th:href="@{/login}">Connexion</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="inner cover">
+                <h1 class="cover-heading">Suivez vos équipes préférées</h1>
+                <p class="lead">Vous êtes fan de Handball et vous souhaitez suivre vos équipes préférées pendant la saison des tournois ? Inscrivez-vous pour suivre les rencontres et partager vos impressions avec la communauté !</p>
+                <p class="lead">
+                    <a href="#" th:href="@{/register}" class="btn btn-lg btn-default">S'inscrire</a>
+                </p>
+            </div>
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>Application Spring développée dans le cadre du module Java EE<br />Copyright 2015 Guillaume MOREL-BAILLY, Arnaud PAUL</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.1/jquery.min.js" th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.2/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
+
+</body>
+
+</html>

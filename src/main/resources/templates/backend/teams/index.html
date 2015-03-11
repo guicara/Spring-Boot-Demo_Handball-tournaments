@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layouts/master">
+
+<head>
+    <title>Administration - Equipes</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="#" th:href="@{/admin}">Administration</a></li>
+            <li><a href="#" th:href="@{/admin/teams}">Equipes</a></li>
+            <li class="active">Liste</li>
+        </ol>
+        <h1>Administration <small>Equipes</small></h1>
+    </div>
+    <div th:if="!${#lists.isEmpty(teams)}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom de l'équipe</th>
+                    <th style="width: 200px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="team : ${teams}">
+                    <th th:text="${team.id}" scope="row">1</th>
+                    <td th:text="${team.name}"></td>
+                    <td style="width: 200px;">
+                        <a href="#" th:href="@{/admin/teams/{teamId}/edit(teamId=${team.id})}" class="btn btn-info" role="button" style="float: left">Modifier</a>
+                        <form action="#" th:action="@{/admin/teams/{teamId}(teamId=${team.id})}" method="post" style="float: left; margin-left: 10px;">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(teams)}">
+        Aucune équipe pour l'instant.
+    </div>
+    <br />
+    <a href="#" th:href="@{/admin/teams/create}" class="btn btn-primary btn-lg active" role="button">Ajouter</a>
+</div>
+
+</body>
+
+</html>
