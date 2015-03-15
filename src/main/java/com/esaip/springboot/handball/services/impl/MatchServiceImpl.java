@@ -4,6 +4,7 @@ import com.esaip.springboot.handball.dto.MatchDTO;
 import com.esaip.springboot.handball.entities.Match;
 import com.esaip.springboot.handball.repositories.MatchRepository;
 import com.esaip.springboot.handball.services.MatchService;
+import com.esaip.springboot.handball.services.ResultService;
 import com.esaip.springboot.handball.services.exceptions.MatchNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,9 @@ public class MatchServiceImpl implements MatchService {
 
     @Autowired
     private MatchRepository matchRepository;
+
+    @Autowired
+    private ResultService resultService;
 
     /**
      * Finds all matchs
@@ -54,9 +58,16 @@ public class MatchServiceImpl implements MatchService {
      */
     @Transactional(readOnly = false)
     public Match create(MatchDTO matchForm) {
-        Match match = new Match(matchForm.getScoreDom(), matchForm.getScoreExt(), matchForm.getPlayedAt(), matchForm.getIdTeamDom(), matchForm.getIdTeamExt());
+        Match match = new Match(matchForm.getScoreHome(), matchForm.getScoreAway(), matchForm.getPlayedAt(), matchForm.getTeamHome(), matchForm.getTeamAway(), matchForm.getSeason());
 
-        return matchRepository.save(match);
+        matchRepository.save(match);
+
+        // Calculate the points for both teams if the scores were filled
+        if (match.getScoreHome() != null && match.getScoreAway() != null) {
+            resultService.calculate(match, false);
+        }
+
+        return match;
     }
 
     /**
@@ -74,11 +85,19 @@ public class MatchServiceImpl implements MatchService {
             throw new MatchNotFoundException("No match found with id = " + matchForm.getId());
         }
 
-        match.setScoreDom(matchForm.getScoreDom());
-        match.setScoreExt(matchForm.getScoreExt());
         match.setPlayedAt(matchForm.getPlayedAt());
-        match.setIdTeamDom(matchForm.getIdTeamDom());
-        match.setIdTeamExt(matchForm.getIdTeamExt());
+        match.setSeason(matchForm.getSeason());
+
+        match.setTeamHome(matchForm.getTeamHome());
+        match.setTeamAway(matchForm.getTeamAway());
+
+        // Recalculate the points for both teams if the scores were changed
+        if (matchForm.getOldScoreAway() != matchForm.getScoreAway() || matchForm.getOldScoreHome() != matchForm.getScoreHome()) {
+            resultService.calculate(match, true);
+        }
+
+        match.setScoreHome(matchForm.getScoreHome());
+        match.setScoreAway(matchForm.getScoreAway());
 
         return matchRepository.save(match);
     }

@@ -24,13 +24,6 @@ This project is a full web application with the following technologies:
 * Twitter Bootstrap - HTML and CSS framework
 * jQuery
 
-## Build and Run
-
-Using maven:
-```sh
-mvn clean package spring-boot:run
-```
-
 ## Running the application (quickstart)
 
 * Clone this git repo and import this project in IntelliJ IDEA.
@@ -40,6 +33,10 @@ mvn clean package spring-boot:run
 ## Configuration
 
 Configure application in application.properties in resources folder (in classpath). This file can be overridden with a copy and specific properties in current dir, config folder in classpath or config folder under current dir. It also supports Spring environment profiles.
+
+## Database Schema
+
+![Database schema of the application](https://cloud.githubusercontent.com/assets/2470367/6657096/f39b4232-cb40-11e4-95a4-9119f29129cd.png)
 
 ## TODOs
 * Frontend: dashboard for logged users, teams ranking table, match, comments...

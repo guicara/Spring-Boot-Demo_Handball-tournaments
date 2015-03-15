@@ -33,10 +33,10 @@
             <tbody>
                 <tr th:each="match : ${matchs}">
                     <th th:text="${match.id}" scope="row">1</th>
-                    <td th:text="${match.getIdTeamDom().name}"></td>
-                    <td th:text="${match.getIdTeamExt().name}"></td>
-                    <td th:text="${match.getScoreDom()}"></td>
-                    <td th:text="${match.getScoreExt()}"></td>
+                    <td th:text="${match.getTeamHome().name}"></td>
+                    <td th:text="${match.getTeamAway().name}"></td>
+                    <td th:text="${match.getScoreHome()}"></td>
+                    <td th:text="${match.getScoreAway()}"></td>
                     <td style="width: 200px;">
                         <a href="#" th:href="@{/admin/matchs/{matchId}/edit(matchId=${match.id})}" class="btn btn-info" role="button" style="float: left">Modifier</a>
                         <form action="#" th:action="@{/admin/matchs/{matchId}(matchId=${match.id})}" method="post" style="float: left; margin-left: 10px;">

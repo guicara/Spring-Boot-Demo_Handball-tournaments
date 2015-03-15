@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Configures URL based authorization
                 .authorizeRequests()
                     .antMatchers("/", "/about", "/register", "/webjars/**", "/css/**", "/js/**").permitAll()
+                    .antMatchers("/admin", "/admin/*").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                 // Configures form login

@@ -1,7 +1,10 @@
 package com.esaip.springboot.handball.entities;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * An entity class which contains the information of a single match.
@@ -17,32 +20,56 @@ public class Match {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "score_dom")
-    private Integer scoreDom;
-
-    @Column(name = "score_ext")
-    private Integer scoreExt;
-
     @Column(name = "played_at", nullable = true)
     private Date playedAt;
 
+    /**
+     * Referring to the team who plays games at their venue.
+     */
     @ManyToOne
-    @JoinColumn(name ="id_team_dom")
-    private Team idTeamDom;
+    @JoinColumn(name = "id_team_home")
+    private Team teamHome;
+
+    /**
+     * Referring to the team who plays games elsewhere.
+     * When a team is not the host, it must travel to games.
+     */
+    @ManyToOne
+    @JoinColumn(name = "id_team_away")
+    private Team teamAway;
+
+    /**
+     * Score of the home team
+     */
+    @Column(name = "score_home")
+    private Integer scoreHome;
+
+    /**
+     * Score of the road/away team
+     */
+    @Column(name = "score_away")
+    private Integer scoreAway;
 
     @ManyToOne
-    @JoinColumn(name ="id_team_ext")
-    private Team idTeamExt;
+    @JoinColumn(name = "id_season")
+    private Season season;
+
+    /**
+     * User comments about the match
+     */
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    private Set<MatchComment> comments = new HashSet<MatchComment>();
 
     public Match() {
     }
 
-    public Match(Integer scoreDom, Integer scoreExt, Date playedAt, Team idTeamDom, Team idTeamExt) {
-        this.scoreDom = scoreDom;
-        this.scoreExt = scoreExt;
+    public Match(Integer scoreHome, Integer scoreAway, Date playedAt, Team teamHome, Team teamAway, Season season) {
+        this.scoreHome = scoreHome;
+        this.scoreAway = scoreAway;
         this.playedAt = playedAt;
-        this.idTeamDom = idTeamDom;
-        this.idTeamExt = idTeamExt;
+        this.teamHome = teamHome;
+        this.teamAway = teamAway;
+        this.season = season;
     }
 
     public Long getId() {
@@ -53,20 +80,20 @@ public class Match {
         this.id = id;
     }
 
-    public Integer getScoreDom() {
-        return scoreDom;
+    public Integer getScoreHome() {
+        return scoreHome;
     }
 
-    public void setScoreDom(Integer scoreDom) {
-        this.scoreDom = scoreDom;
+    public void setScoreHome(Integer scoreHome) {
+        this.scoreHome = scoreHome;
     }
 
-    public Integer getScoreExt() {
-        return scoreExt;
+    public Integer getScoreAway() {
+        return scoreAway;
     }
 
-    public void setScoreExt(Integer scoreExt) {
-        this.scoreExt = scoreExt;
+    public void setScoreAway(Integer scoreAway) {
+        this.scoreAway = scoreAway;
     }
 
     public Date getPlayedAt() {
@@ -77,20 +104,45 @@ public class Match {
         this.playedAt = playedAt;
     }
 
-    public Team getIdTeamDom() {
-        return idTeamDom;
+    public String getPlayedAtFormatted() {
+        // French date format
+        // TODO : use localization
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM yyyy");
+
+        return dateFormat.format(playedAt);
     }
 
-    public void setIdTeamDom(Team idTeamDom) {
-        this.idTeamDom = idTeamDom;
+    public Team getTeamHome() {
+        return teamHome;
     }
 
-    public Team getIdTeamExt() {
-        return idTeamExt;
+    public void setTeamHome(Team teamHome) {
+        this.teamHome = teamHome;
     }
 
-    public void setIdTeamExt(Team idTeamExt) {
-        this.idTeamExt = idTeamExt;
+    public Team getTeamAway() {
+        return teamAway;
+    }
+
+    public void setTeamAway(Team teamAway) {
+        this.teamAway = teamAway;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
+    }
+
+    public Set<MatchComment> getComments() {
+        return comments;
+    }
+
+    public void addComment(MatchComment userComment) {
+        userComment.setMatch(this);
+        comments.add(userComment);
     }
 
 }

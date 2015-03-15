@@ -25,7 +25,7 @@ import java.util.Date;
 public class SeasonController {
 
     @Autowired
-    SeasonService seasonService;
+    private SeasonService seasonService;
 
     /**
      * CustomDateEditor for converting the user input String to date.

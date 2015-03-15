@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/master">
+
+<head>
+    <title th:text="${team.getName()}">Equipe</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="page-header">
+        <h1 th:text="${team.getName()}">Equipe</h1>
+    </div>
+    <p th:text="${team.getDescription()}">Description</p>
+    <div id="scores">
+        <h3>Scores</h3>
+        <ul>
+            <lI>Matchs joués : </lI>
+            <li>Matchs gagnés : </li>
+            <li>Matchs nuls : </li>
+            <li>Matchs perdus : </li>
+        </ul>
+    </div>
+    <h3>Rencontres à venir</h3>
+    <h3>Rencontres précédentes</h3>
+</div>
+
+</body>
+
+</html>

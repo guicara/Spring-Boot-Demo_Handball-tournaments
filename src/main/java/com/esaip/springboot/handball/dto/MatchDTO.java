@@ -1,5 +1,6 @@
 package com.esaip.springboot.handball.dto;
 
+import com.esaip.springboot.handball.entities.Season;
 import com.esaip.springboot.handball.entities.Team;
 
 import java.util.Date;
@@ -13,15 +14,21 @@ public class MatchDTO {
 
     private Long id;
 
-    private Integer scoreDom;
+    private Integer scoreHome;
 
-    private Integer scoreExt;
+    private Integer scoreAway;
+
+    private Integer oldScoreHome;
+
+    private Integer oldScoreAway;
 
     private Date playedAt;
 
-    private Team idTeamDom;
+    private Team teamHome;
 
-    private Team idTeamExt;
+    private Team teamAway;
+
+    private Season season;
 
     public MatchDTO() {
     }
@@ -34,20 +41,36 @@ public class MatchDTO {
         this.id = id;
     }
 
-    public Integer getScoreDom() {
-        return scoreDom;
+    public Integer getScoreHome() {
+        return scoreHome;
     }
 
-    public void setScoreDom(Integer scoreDom) {
-        this.scoreDom = scoreDom;
+    public void setScoreHome(Integer scoreHome) {
+        this.scoreHome = scoreHome;
     }
 
-    public Integer getScoreExt() {
-        return scoreExt;
+    public Integer getScoreAway() {
+        return scoreAway;
     }
 
-    public void setScoreExt(Integer scoreExt) {
-        this.scoreExt = scoreExt;
+    public void setScoreAway(Integer scoreAway) {
+        this.scoreAway = scoreAway;
+    }
+
+    public Integer getOldScoreHome() {
+        return oldScoreHome;
+    }
+
+    public void setOldScoreHome(Integer oldScoreHome) {
+        this.oldScoreHome = oldScoreHome;
+    }
+
+    public Integer getOldScoreAway() {
+        return oldScoreAway;
+    }
+
+    public void setOldScoreAway(Integer oldScoreAway) {
+        this.oldScoreAway = oldScoreAway;
     }
 
     public Date getPlayedAt() {
@@ -58,20 +81,28 @@ public class MatchDTO {
         this.playedAt = playedAt;
     }
 
-    public Team getIdTeamDom() {
-        return idTeamDom;
+    public Team getTeamHome() {
+        return teamHome;
     }
 
-    public void setIdTeamDom(Team idTeamDom) {
-        this.idTeamDom = idTeamDom;
+    public void setTeamHome(Team teamHome) {
+        this.teamHome = teamHome;
     }
 
-    public Team getIdTeamExt() {
-        return idTeamExt;
+    public Team getTeamAway() {
+        return teamAway;
     }
 
-    public void setIdTeamExt(Team idTeamExt) {
-        this.idTeamExt = idTeamExt;
+    public void setTeamAway(Team teamAway) {
+        this.teamAway = teamAway;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
     }
 
 }

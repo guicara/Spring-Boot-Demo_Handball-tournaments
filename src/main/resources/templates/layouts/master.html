@@ -44,6 +44,9 @@
             </ul>
             <ul class="nav navbar-nav" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
                 <li th:classappend="${page == 'dashboard' ? 'active' : ''}"><a href="#" th:href="@{/dashboard}">Tableau de bord</a></li>
+                <li th:classappend="${page == 'ranking' ? 'active' : ''}"><a href="#" th:href="@{/ranking}">Classement</a></li>
+                <li th:classappend="${page == 'matchs' ? 'active' : ''}"><a href="#" th:href="@{/matchs}">Matchs</a></li>
+                <li th:classappend="${page == 'teams' ? 'active' : ''}"><a href="#" th:href="@{/teams}">Equipes</a></li>
                 <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">Administration <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
@@ -51,7 +54,6 @@
                         <li class="divider"></li>
                         <li><a href="#" th:href="@{/admin/teams}">Equipes</a></li>
                         <li><a href="#" th:href="@{/admin/seasons}">Saisons</a></li>
-                        <li><a href="#" th:href="@{/admin/results}">Résultats</a></li>
                         <li><a href="#" th:href="@{/admin/matchs}">Matchs</a></li>
                     </ul>
                 </li>

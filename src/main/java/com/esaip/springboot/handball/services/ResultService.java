@@ -1,8 +1,11 @@
 package com.esaip.springboot.handball.services;
 
 import com.esaip.springboot.handball.dto.ResultDTO;
+import com.esaip.springboot.handball.entities.Match;
 import com.esaip.springboot.handball.entities.Result;
+import com.esaip.springboot.handball.entities.Season;
 import com.esaip.springboot.handball.services.exceptions.ResultNotFoundException;
+import com.esaip.springboot.handball.services.exceptions.TeamNotFoundException;
 
 import java.util.List;
 
@@ -52,5 +55,13 @@ public interface ResultService {
      * @throws ResultNotFoundException If no result is found with the given ID
      */
     public void delete(Long id) throws ResultNotFoundException;
+
+    /**
+     * Calculates the number of points per team for the given match
+     *
+     * @param match Instance of Match
+     * @param updated TRUE if the result need to be updated
+     */
+    public void calculate(Match match, boolean updated);
 
 }

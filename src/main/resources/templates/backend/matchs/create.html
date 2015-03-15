@@ -18,38 +18,67 @@
     </div>
     <div th:if="!${#lists.isEmpty(teams)}">
         <form class="form-signin" role="form" action="#" th:action="@{/admin/matchs}" th:object="${match}" method="post">
-            <div class="form-group">
-                <label for="idTeamDom">Equipe domicile</label>
-                <select id="idTeamDom" th:field="*{idTeamDom}" class="form-control">
-                    <option th:each="team : ${teams}"
-                            th:value="${team.id}"
-                            th:text="${team.name}">Nom équipe</option>
-                </select>
-                <p th:if="${#fields.hasErrors('idTeamDom')}" th:errors="*{idTeamDom}"></p>
+
+            <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
             </div>
-            <div class="form-group">
-                <label for="idTeamExt">Equipe extérieure</label>
-                <select id="idTeamExt" th:field="*{idTeamExt}" class="form-control">
-                    <option th:each="team : ${teams}"
-                            th:value="${team.id}"
-                            th:text="${team.name}">Nom équipe</option>
-                </select>
-                <p th:if="${#fields.hasErrors('idTeamExt')}" th:errors="*{idTeamExt}"></p>
-            </div>
-            <div class="form-group">
-                <label for="scoreDom">Score équipe domicile</label>
-                <input type="text" class="form-control" id="scoreDom" placeholder="" th:field="*{scoreDom}" />
-                <p th:if="${#fields.hasErrors('scoreDom')}" th:errors="*{scoreDom}"></p>
-            </div>
-            <div class="form-group">
-                <label for="scoreDom">Score équipe extérieure</label>
-                <input type="text" class="form-control" id="scoreExt" placeholder="" th:field="*{scoreExt}" />
-                <p th:if="${#fields.hasErrors('scoreExt')}" th:errors="*{scoreExt}"></p>
-            </div>
-            <div class="form-group">
-                <label for="playedAt">Date de la rencontre</label>
-                <input type="text" class="form-control" id="playedAt" placeholder="Au format jj/mm/aaaa" th:field="*{playedAt}" required="required" />
-                <p th:if="${#fields.hasErrors('playedAt')}" th:errors="*{playedAt}"></p>
+
+            <ul class="nav nav-tabs" role="tablist" id="tabs">
+                <li role="presentation" class="active"><a href="#infos" aria-controls="infos" role="tab" data-toggle="tab">Généralités</a></li>
+                <li role="presentation"><a href="#results" aria-controls="results" role="tab" data-toggle="tab">Résultats</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="infos">
+                    <br />
+                    <div class="form-group">
+                        <label for="teamHome">Equipe domicile</label>
+                        <select id="teamHome" th:field="*{teamHome}" class="form-control">
+                            <option th:each="team : ${teams}"
+                                    th:value="${team.id}"
+                                    th:text="${team.name}">Nom équipe</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('teamHome')}" th:errors="*{teamHome}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="teamAway">Equipe extérieure</label>
+                        <select id="teamAway" th:field="*{teamAway}" class="form-control">
+                            <option th:each="team : ${teams}"
+                                    th:value="${team.id}"
+                                    th:text="${team.name}">Nom équipe</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('teamAway')}" th:errors="*{teamAway}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="playedAt">Date de la rencontre</label>
+                        <input type="text" class="form-control" id="playedAt" placeholder="Au format jj/mm/aaaa" th:field="*{playedAt}" required="required" />
+                        <p th:if="${#fields.hasErrors('playedAt')}" th:errors="*{playedAt}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="season">Saison</label>
+                        <select id="season" th:field="*{season}" class="form-control">
+                            <option th:each="season : ${seasons}"
+                                    th:value="${season.id}"
+                                    th:text="${season.name}">Nom saison</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('season')}" th:errors="*{season}"></p>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="results">
+                    <br />
+                    <p>A la fin de la rencontre, renseignez les résultats ci-dessous :</p>
+                    <br />
+                    <div class="form-group">
+                        <label for="scoreHome">Score équipe domicile</label>
+                        <input type="text" class="form-control" id="scoreHome" placeholder="" th:field="*{scoreHome}" />
+                        <p th:if="${#fields.hasErrors('scoreHome')}" th:errors="*{scoreHome}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="scoreHome">Score équipe extérieure</label>
+                        <input type="text" class="form-control" id="scoreAway" placeholder="" th:field="*{scoreAway}" />
+                        <p th:if="${#fields.hasErrors('scoreAway')}" th:errors="*{scoreAway}"></p>
+                    </div>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
         </form>

@@ -24,7 +24,7 @@ import javax.validation.Valid;
 public class ResultController {
 
     @Autowired
-    ResultService resultService;
+    private ResultService resultService;
 
     /**
      * Display a listing of the resource.

@@ -1,6 +1,8 @@
 package com.esaip.springboot.handball.repositories;
 
 import com.esaip.springboot.handball.entities.Result;
+import com.esaip.springboot.handball.entities.Season;
+import com.esaip.springboot.handball.entities.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ResultRepository extends JpaRepository<Result, Long> {
+
+    public Result findBySeasonAndTeam(Season season, Team team);
 
 }

@@ -2,7 +2,9 @@ package com.esaip.springboot.handball.controllers.backend;
 
 import com.esaip.springboot.handball.dto.MatchDTO;
 import com.esaip.springboot.handball.entities.Match;
+import com.esaip.springboot.handball.entities.Season;
 import com.esaip.springboot.handball.services.MatchService;
+import com.esaip.springboot.handball.services.SeasonService;
 import com.esaip.springboot.handball.services.TeamService;
 import com.esaip.springboot.handball.services.exceptions.MatchNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,13 @@ import java.util.Date;
 public class MatchController {
 
     @Autowired
-    MatchService matchService;
+    private MatchService matchService;
 
     @Autowired
-    TeamService teamService;
+    private TeamService teamService;
+
+    @Autowired
+    private SeasonService seasonService;
 
     /**
      * CustomDateEditor for converting the user input String to date.
@@ -56,9 +61,11 @@ public class MatchController {
      */
     @RequestMapping(value = "/admin/matchs/create", method = RequestMethod.GET)
     public String create(Model model) {
-        // Populates the teams dropdown
+        // Populates the teams and seasons dropdown
         model.addAttribute("teams", teamService.getAll());
+        model.addAttribute("seasons", seasonService.getAll());
 
+        // Populates the match form
         model.addAttribute("match", new MatchDTO());
 
         return "backend/matchs/create";
@@ -101,9 +108,11 @@ public class MatchController {
             return "redirect:/admin/matchs";
         }
 
-        // Populates the teams dropdown
+        // Populates the teams and seasons dropdown
         model.addAttribute("teams", teamService.getAll());
+        model.addAttribute("seasons", seasonService.getAll());
 
+        // Populates the match form (with match comments)
         model.addAttribute("match", match);
 
         return "backend/matchs/edit";

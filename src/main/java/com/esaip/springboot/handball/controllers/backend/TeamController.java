@@ -25,7 +25,7 @@ import javax.validation.Valid;
 public class TeamController {
 
     @Autowired
-    TeamService teamService;
+    private TeamService teamService;
 
     /**
      * Display a listing of the resource.

@@ -17,7 +17,7 @@ public class MatchComment {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "description", length = 1000, nullable = true)
+    @Column(name = "comment", length = 1000, nullable = true)
     private String comment;
 
     @Column(name = "posted_at", nullable = true)
@@ -30,13 +30,18 @@ public class MatchComment {
     @JoinColumn(name ="id_user")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name ="id_match")
+    private Match match;
+
     public MatchComment() {
     }
 
-    public MatchComment(String comment, Date postedAt, User user) {
+    public MatchComment(String comment, Date postedAt, User user, Match match) {
         this.comment = comment;
         this.postedAt = postedAt;
         this.user = user;
+        this.match = match;
     }
 
     public Long getId() {
@@ -69,6 +74,14 @@ public class MatchComment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
     }
 
 }
